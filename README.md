@@ -74,3 +74,42 @@ tar -xzf electron-43.2.0-npm-install.tar.gz -C ..
 Compare the `certutil` hash with
 `archives/electron-43.2.0-npm-install.tar.gz.sha256`, then use the restored
 `package.json`, `package-lock.json`, and `node_modules` contents offline.
+
+## Included ajv and undici packages
+
+`archives/ajv-8.20.0-undici-8.11.2-offline.tar.gz` bundles
+[`ajv@8.20.0`](https://github.com/ajv-validator/ajv) and
+[`undici@8.11.2`](https://github.com/nodejs/undici) with all of their runtime
+dependencies:
+
+```text
+ajv-undici-offline/
+  package.json           ajv and undici pinned to exact versions
+  package-lock.json
+  node_modules/          ready-to-use npm install result
+  tarballs/              original registry .tgz files
+    ajv-8.20.0.tgz
+    fast-deep-equal-3.1.3.tgz
+    fast-uri-3.1.8.tgz
+    json-schema-traverse-1.0.0.tgz
+    require-from-string-2.0.2.tgz
+    undici-8.11.2.tgz
+  install-offline.bat    seeds the npm cache from tarballs/ and runs npm install --offline
+```
+
+On Windows, verify and extract it with:
+
+```bat
+cd archives
+certutil -hashfile ajv-8.20.0-undici-8.11.2-offline.tar.gz SHA256
+tar -xzf ajv-8.20.0-undici-8.11.2-offline.tar.gz -C ..
+```
+
+Compare the hash with `archives/ajv-8.20.0-undici-8.11.2-offline.tar.gz.sha256`.
+Then either copy `ajv-undici-offline\node_modules` into your project, or run
+`ajv-undici-offline\install-offline.bat` to reinstall from the bundled tarballs.
+To add them to an existing project, run
+`npm install --offline <path>\ajv-undici-offline\tarballs\ajv-8.20.0.tgz <path>\ajv-undici-offline\tarballs\undici-8.11.2.tgz`
+after seeding the cache with `npm cache add` for each `.tgz`.
+
+`undici@8` requires Node.js 22.19.0 or newer.
