@@ -113,3 +113,20 @@ To add them to an existing project, run
 after seeding the cache with `npm cache add` for each `.tgz`.
 
 `undici@8` requires Node.js 22.19.0 or newer.
+
+## Included psycopg-binary wheel
+
+`archives/psycopg_binary-3.3.8-cp313-cp313-win_amd64.tar.gz` contains the PyPI
+wheel `psycopg_binary-3.3.8-cp313-cp313-win_amd64.whl` (Python 3.13, Windows
+x64). Wheel SHA-256:
+`e42c0e37eaed1ff03c24008561bca218eae8ec5ca4405a37897c6245ead8d612`.
+
+```bat
+cd archives
+certutil -hashfile psycopg_binary-3.3.8-cp313-cp313-win_amd64.tar.gz SHA256
+tar -xzf psycopg_binary-3.3.8-cp313-cp313-win_amd64.tar.gz
+pip install --no-index psycopg_binary-3.3.8-cp313-cp313-win_amd64.whl
+```
+
+Compare the archive hash with
+`archives/psycopg_binary-3.3.8-cp313-cp313-win_amd64.tar.gz.sha256`.
